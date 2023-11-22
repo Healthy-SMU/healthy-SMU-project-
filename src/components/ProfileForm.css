@@ -1,0 +1,38 @@
+/* ProfileForm.css */
+
+.profile-form {
+    text-align: center;
+  }
+  
+  .profile-form label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .profile-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px; /* Adjust the border-radius as needed for rounded corners */
+    margin-bottom: 15px;
+    box-sizing: border-box;
+  }
+  
+  .profile-form .buttons {
+    text-align: center;
+  }
+  
+  .profile-form button {
+    background-color: dodgerblue;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px; /* Adjust the border-radius as needed for rounded corners */
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .profile-form button:last-child {
+    margin-right: 0;
+  }
+  
