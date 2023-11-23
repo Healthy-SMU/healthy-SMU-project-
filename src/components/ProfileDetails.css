@@ -1,8 +1,9 @@
 /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
 .flip-card {
+  
   background-color: transparent;
   width: 400px; /* Adjust the width as needed */
-  height: 500px; /* Adjust the height as needed */
+  height: 600px; /* Adjust the height as needed */
   border: none ;
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
   margin: auto;
@@ -59,11 +60,12 @@
     align-items: center;
     border-radius: 15px; /* Adjust the border-radius as needed */
     overflow: hidden; /* Ensure content within the rounded border is visible */
+    
   }
 
   .flip-card-back h1 {
     font-size: 40px; /* Adjust the font size as needed */
-    margin-bottom: 10px; /* Add margin for separation */
+    margin-bottom: 5px; /* Add margin for separation */
      ;
   }
   
@@ -95,4 +97,24 @@ text-decoration: none;
 font-style: normal;
 font-variant: normal;
 text-transform: none;
+  }
+  .profile-details {
+    text-align: center;
+  }
+  
+  /* Style for the phone number */
+  .flip-card-back p {
+    font-size: 18px;
+    margin: 5px 0;
+  }
+
+  .delete-button-container {
+    margin-top: 15px;
+  }
+  .delete-button {
+    background-color: tomato;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
   }
