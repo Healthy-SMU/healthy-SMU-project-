@@ -1,8 +1,10 @@
+
 import React, { useState } from 'react';
 import './ProfileDetails.css';
 import avatar from './Assets/avatar.jpg';
 import ProfileForm from './ProfileForm';
 import { Link } from 'react-router-dom';
+
 
 export default function ProfileDetails() {
   const mockData = {
@@ -29,6 +31,7 @@ export default function ProfileDetails() {
   };
 
   return (
+
     <div className="profile-details">
       <div className="flip-card">
         <div className={`flip-card-inner${isEditing ? ' is-editing' : ''}`}>
@@ -71,6 +74,7 @@ export default function ProfileDetails() {
               </>
             )}
           </div>
+
         </div>
       </div>
     </div>

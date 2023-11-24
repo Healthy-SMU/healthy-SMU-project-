@@ -5,7 +5,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import ProfileDetails from './components/ProfileDetails';
 import BookMeeting from './components/BookMeeting';
+
+import Book from './components/booking';
 import WelcomePage from './components/WelcomePage';
+
 const App = () => {
   return (
       <div>
@@ -15,7 +18,7 @@ const App = () => {
             <Route index element={<Home/>}/>
             <Route path='/home' element={<WelcomePage/>}/>
             <Route path='/profile-details' element={<ProfileDetails/>}/>
-            <Route path='/book-a-meeting' element={<BookMeeting/>}/>
+            <Route path='/book-a-meeting' element={<Book/>}/>
             <Route path='/login' element={<LoginSignUp/>}/>
           </Routes>
         </BrowserRouter>
