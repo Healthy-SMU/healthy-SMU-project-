@@ -38,24 +38,13 @@ const Home = (props) => {
         </div>
       </div>
 
-      <p>
-        <b>
-          Welcome to healthy SMU – your gateway to accessible and confidential
-          healthcare support!
-        </b>
-        <br></br>
-        At healthy SMU you can easily and quickly book meetings with dedicated
-        healthcare professionals.<br></br> Whether you're seeking guidance from
-        compassionate nurses or looking to connect with experienced
-        psychologists,<br></br> Your
-        well-being is our priority, and we're here to support you every step of
-        the way.<br></br> Explore the possibilities of personalized healthcare
-        at healthy SMU Take control of your health journey<br></br> by
-        scheduling meetings that fit seamlessly into your student life.<br></br>{" "}
-        Your well-being is our priority, and we're here to support you every
-        step of the way.<br></br> Login and explore the possibilities of
-        personalized healthcare at healthy SMU .
-      </p>
+      <section class="health-info">
+  <h1 style={{color :'black'}}>Welcome to healthy SMU – your gateway to accessible and confidential healthcare support!</h1>
+  <p>Easily book meetings with dedicated healthcare professionals, including compassionate nurses and experienced psychologists.</p>
+  <p>Your well-being is our priority, and we're here to support you every step of the way.</p>
+  <p>Explore personalized healthcare and take control of your health journey by scheduling meetings that fit seamlessly into your student life.</p>
+  <p>Connect to discover the possibilities at healthy SMU.</p>
+  </section>
 
       <div className="login_button">
         <Button variant="contained" color="success">
@@ -68,11 +57,13 @@ const Home = (props) => {
               width: "70px",
             }}
           >
-            login
+            Connect
           </Link>
         </Button>
       </div>
     </div>
+
+    
   );
 };
 
