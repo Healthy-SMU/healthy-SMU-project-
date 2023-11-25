@@ -31,6 +31,12 @@ export default function BookMeeting() {
     setSelectedHCP(HCP);
   };
 
+
+
+
+
+
+
   const handleOk = () => {
     // Perform actions when "OK" is clicked (e.g., save the selected date, time range, and HCP)
     console.log("OK clicked. Selected Date:", selectedDate);
@@ -76,6 +82,50 @@ export default function BookMeeting() {
                 value={selectedTimeRange}
                 onChange={handleTimeRangeChange}
               ></MultiInputTimeRangeField>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "baseline",
+                }}
+              >
+                <Autocomplete
+                  id="HCP-select-demo"
+                  sx={{ width: 250, marginTop: "20px", color: "black" }}
+                  options={HCP}
+                  autoHighlight
+                  getOptionLabel={(option) => option.name}
+                  isOptionEqualToValue={(option, value) =>
+                    option.code === value.code
+                  }
+                  onChange={(event, value) => handleHCPChange(value)}
+                  renderOption={(props, option) => (
+                    <Box
+                      component="li"
+                      sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                      {...props}
+                    >
+                      {option.code}: {option.name} | room:{option.room}
+                    </Box>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Choose a HCP"
+                      inputProps={{
+                        ...params.inputProps,
+                        autoComplete: "new-password", // disable autocomplete and autofill
+                      }}
+                    />
+                  )}
+                />
+                <Button
+                  variant="contained"
+                  className="submit-button"
+                  onClick={handleOk}
+                >
+                  Submit
+                </Button>
               <div
                 style={{
                   display: "flex",

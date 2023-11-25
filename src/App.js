@@ -6,7 +6,7 @@ import Navigation from './components/Navigation';
 import ProfileDetails from './components/ProfileDetails';
 import BookMeeting from './components/BookMeeting';
 
-import Book from './components/booking';
+
 import WelcomePage from './components/WelcomePage';
 
 const App = () => {
