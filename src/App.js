@@ -6,6 +6,9 @@ import Navigation from './components/Navigation';
 import ProfileDetails from './components/ProfileDetails';
 import BookMeeting from './components/BookMeeting';
 
+
+import WelcomePage from './components/WelcomePage';
+
 const App = () => {
   return (
       <div>
@@ -13,7 +16,7 @@ const App = () => {
         <Navigation/> 
           <Routes>
             <Route index element={<Home/>}/>
-            <Route path='/' element={<Home/>}/>
+            <Route path='/home' element={<WelcomePage/>}/>
             <Route path='/profile-details' element={<ProfileDetails/>}/>
             <Route path='/book-a-meeting' element={<BookMeeting/>}/>
             <Route path='/login' element={<LoginSignUp/>}/>

@@ -72,6 +72,7 @@ export default function BookMeeting() {
                 set your time
               </Typography>
               <MultiInputTimeRangeField
+                style={{ marginBottom: "8px" }}
                 label="Select Time Range"
                 slotProps={{
                   textField: ({ position }) => ({
@@ -91,6 +92,51 @@ export default function BookMeeting() {
                 <Autocomplete
                   id="HCP-select-demo"
                   sx={{ width: 250, marginTop: "20px", color: "black" }}
+                  options={HCP}
+                  autoHighlight
+                  getOptionLabel={(option) => option.name}
+                  isOptionEqualToValue={(option, value) =>
+                    option.code === value.code
+                  }
+                  onChange={(event, value) => handleHCPChange(value)}
+                  renderOption={(props, option) => (
+                    <Box
+                      component="li"
+                      sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                      {...props}
+                    >
+                      {option.code}: {option.name} | room:{option.room}
+                    </Box>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Choose a HCP"
+                      inputProps={{
+                        ...params.inputProps,
+                        autoComplete: "new-password", // disable autocomplete and autofill
+                      }}
+                    />
+                  )}
+                />
+                <Button
+                  variant="contained"
+                  className="submit-button"
+                  onClick={handleOk}
+                >
+                  Submit
+                </Button>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Autocomplete
+                  id="HCP-select-demo"
+                  sx={{ width: 220, marginTop: "30px", color: "black" }}
                   options={HCP}
                   autoHighlight
                   getOptionLabel={(option) => option.name}
