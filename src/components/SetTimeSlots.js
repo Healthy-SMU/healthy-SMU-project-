@@ -18,7 +18,7 @@ const styles = {
   },
 };
 
-const SetTimeSlots = () => {
+const SetTimeSlots = ({ weeklyEvents}) => {
   const calendarRef = useRef();
 
   const editEvent = async (e) => {
@@ -33,6 +33,7 @@ const SetTimeSlots = () => {
   };
 
   const [calendarConfig, setCalendarConfig] = useState({
+    
     viewType: "Week",
     durationBarVisible: true,
     timeRangeSelectedHandling: "enabled",
@@ -42,6 +43,7 @@ const SetTimeSlots = () => {
         "Create a new event:",
         "available time slot "
       );
+      
       dp.clearSelection();
 
       if (!modal.result) {
@@ -139,36 +141,9 @@ const SetTimeSlots = () => {
     const dp = calendarRef.current.control;
     dp.columnMarginRight = 40;
     const startDate = new Date();
-    
-    const weeklyEvents = [
-      {
-        id: 1,
-        text: "Meeting A",
-        start: "2023-11-28T08:30:00",
-        end: "2023-11-28T10:00:00",
-      },
-      {
-        id: 2,
-        text: "Meeting B",
-        start: "2023-11-28T10:30:00",
-        end: "2023-11-28T12:00:00",
-      },
-      {
-        id: 3,
-        text: "Meeting C",
-        start: "2023-11-28T13:30:00",
-        end: "2023-11-28T15:00:00",
-      },
-      {
-        id: 4,
-        text: "Meeting D",
-        start: "2023-11-28T15:30:00",
-        end: "2023-11-28T17:00:00",
-      },
-      
-      // Add more events as needed
-    ];
 
+    
+   
     // Add 48 weeks of recurring events
     for (let i = 0; i < 48; i++) {
       weeklyEvents.forEach((event) => {

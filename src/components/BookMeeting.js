@@ -10,7 +10,9 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
 
-export default function BookMeeting() {
+
+
+export default function BookMeeting({weeklyEvents}) {
   const [selectedDate, setSelectedDate] = useState(null);
  
   const [selectedHCP, setSelectedHCP] = useState(null);
@@ -25,13 +27,22 @@ export default function BookMeeting() {
     setSelectedHCP(HCP);
   };
 
+  const eventTimeRanges = weeklyEvents.map((event) => {
+    return {
+      id: event.id,
+      date: new Date(event.start), 
+      startTime: new Date(event.start),
+      endTime: new Date(event.end),
+    };
+  });
+  
 const timeSlots =[
-  { sess: "moring session", range: "from:8:30=> to 9:30 "},
-  { sess: "moring session", range: "from:9:40=> to 10:40 "},
-  { sess: "moring session", range: "from:10:50=> to 11:50 "},
-  { sess: "afternoon session", range: "from:13:30=> to 14:30 "},
-  { sess: "afternoon session", range: "from:14:40=> to 15:40 "},
-  { sess: "afternoon session", range: "from:15:50=> to 16:50 "}
+  { sess: "moring session", start: eventTimeRanges[0].startTime.toLocaleTimeString('en-US') ,end:eventTimeRanges[0].endTime.toLocaleTimeString('en-US')},
+  { sess: "moring session", start: eventTimeRanges[1].startTime.toLocaleTimeString('en-US') ,end:eventTimeRanges[1].endTime.toLocaleTimeString('en-US')},
+  { sess: "moring session",start: eventTimeRanges[2].startTime.toLocaleTimeString('en-US') ,end:eventTimeRanges[2].endTime.toLocaleTimeString('en-US')},
+  { sess: "afternoon session", start: eventTimeRanges[3].startTime.toLocaleTimeString('en-US') ,end:eventTimeRanges[3].endTime.toLocaleTimeString('en-US')}
+  
+  
 ];
 const handleTimeSlotChange = (timeSlots) => {
   setSelectedTimeSlot(timeSlots);
@@ -50,8 +61,8 @@ const handleTimeSlotChange = (timeSlots) => {
 
   const HCP = [
     
-    { code: "nurse", name: "monjiya", room: "376" },
-    { code: "psy", name: "mouldi ", room: "503" },
+    {id:1,  code: "nurse", name: "monjiya", room: "376" },
+    {id:2, code: "psy", name: "mouldi ", room: "503" },
   ];
 
   return (
@@ -77,43 +88,6 @@ const handleTimeSlotChange = (timeSlots) => {
                 set your time
               </Typography>
               <Autocomplete
-                  id="HCP-select-demo"
-                  sx={{ width: 220, marginTop: "20px" }} 
-                  options={timeSlots}
-                  autoHighlight
-                  getOptionLabel={(option) => option.range}
-                  isOptionEqualToValue={(option, value) =>
-                    option.sess === value.sess
-                  }
-                  onChange={(event, value) => handleTimeSlotChange(value)}
-                  renderOption={(props, option) => (
-                    <Box
-                      component="li"
-                      sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
-                      {...props}
-                    >
-                      {option.sess}: {option.range}
-                    </Box>
-                  )}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Choose a time slot"
-                      inputProps={{
-                        ...params.inputProps,
-                        autoComplete: "new-password", // disable autocomplete and autofill
-                      }}
-                    />
-                  )}/>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "baseline",
-                  justifyContent:'space-between'
-                }}
-              >
-                <Autocomplete
                   id="HCP-select-demo"
                   sx={{ width: 220, marginTop: "20px" }}
                   options={HCP}
@@ -143,6 +117,46 @@ const handleTimeSlotChange = (timeSlots) => {
                     />
                   )}
                 />
+                
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "baseline",
+                  justifyContent:'space-between'
+                }}
+              >
+                {selectedHCP?<Autocomplete
+                  id="timeslot-select-demo"
+                  sx={{ width: 220, marginTop: "20px" }} 
+                  options={timeSlots}
+                  autoHighlight
+                  getOptionLabel={(option) => option.start}
+                  isOptionEqualToValue={(option, value) =>
+                    option.sess === value.sess
+                  }
+                  onChange={(event, value) => handleTimeSlotChange(value)}
+                  renderOption={(props, option) => (
+                    <Box
+                      component="li"
+                      sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                      {...props}
+                    >
+                      {option.sess}: from {option.start}  to{option.end}
+                    </Box>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Choose a time slot"
+                      inputProps={{
+                        ...params.inputProps,
+                        autoComplete: "new-password", // disable autocomplete and autofill
+                      }}
+                    />
+                  )}/>:null}
+                
+              
                 <Button
                   variant="contained"
                   className="submit-button"
