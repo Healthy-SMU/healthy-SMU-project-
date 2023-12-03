@@ -115,9 +115,21 @@ const handleTimeSlotChange = (timeSlots) => {
                         autoComplete: "new-password", // disable autocomplete and autofill
                       }}
                     />
+
+                  )} 
+                /></div>
+                <Button
+                  variant="contained"
+                  className="submit-button"
+                  onClick={handleOk}
+                >
+                  Submit
+                </Button>
+
                   )}
                 />
                 
+
               <div
                 style={{
                   display: "flex",
