@@ -25,7 +25,7 @@ if(location.pathname ==="/login" || location.pathname ==="/") {
     <Navbar bg="dark" data-bs-theme="dark">
       <Container className="navbar">
         <Nav.Link>
-          <Link to="/">
+          <Link to="/home">
             <img src={logo} alt="Logo" className="logo"  />
           </Link>
         </Nav.Link>
