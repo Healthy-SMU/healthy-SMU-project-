@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { MultiInputTimeRangeField } from "@mui/x-date-pickers-pro";
 import Box from "@mui/material/Box";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -11,27 +10,43 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
 
-export default function BookMeeting() {
+
+
+export default function BookMeeting({weeklyEvents}) {
   const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTimeRange, setSelectedTimeRange] = useState([
-    { start: new Date(), end: new Date() },
-    { start: new Date(), end: new Date() },
-  ]);
+ 
   const [selectedHCP, setSelectedHCP] = useState(null);
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
 
-  const handleTimeRangeChange = (newTimeRange) => {
-    setSelectedTimeRange(newTimeRange);
-  };
 
   const handleHCPChange = (HCP) => {
     setSelectedHCP(HCP);
   };
 
-
+  const eventTimeRanges = weeklyEvents.map((event) => {
+    return {
+      id: event.id,
+      date: new Date(event.start), 
+      startTime: new Date(event.start),
+      endTime: new Date(event.end),
+    };
+  });
+  
+const timeSlots =[
+  { sess: "moring session", start: eventTimeRanges[0].startTime.toLocaleTimeString('en-US') ,end:eventTimeRanges[0].endTime.toLocaleTimeString('en-US')},
+  { sess: "moring session", start: eventTimeRanges[1].startTime.toLocaleTimeString('en-US') ,end:eventTimeRanges[1].endTime.toLocaleTimeString('en-US')},
+  { sess: "moring session",start: eventTimeRanges[2].startTime.toLocaleTimeString('en-US') ,end:eventTimeRanges[2].endTime.toLocaleTimeString('en-US')},
+  { sess: "afternoon session", start: eventTimeRanges[3].startTime.toLocaleTimeString('en-US') ,end:eventTimeRanges[3].endTime.toLocaleTimeString('en-US')}
+  
+  
+];
+const handleTimeSlotChange = (timeSlots) => {
+  setSelectedTimeSlot(timeSlots);
+};
 
 
 
@@ -40,13 +55,14 @@ export default function BookMeeting() {
   const handleOk = () => {
     // Perform actions when "OK" is clicked (e.g., save the selected date, time range, and HCP)
     console.log("OK clicked. Selected Date:", selectedDate);
-    console.log("Selected Time Range:", selectedTimeRange);
+    console.log("Selected Time Range:", selectedTimeSlot);
     console.log("Selected HCP:", selectedHCP);
   };
 
   const HCP = [
-    { code: "nurse", name: "monjiya", room: "376" },
-    { code: "psy", name: "mouldi ", room: "503" },
+    
+    {id:1,  code: "nurse", name: "monjiya", room: "376" },
+    {id:2, code: "psy", name: "mouldi ", room: "503" },
   ];
 
   return (
@@ -71,27 +87,9 @@ export default function BookMeeting() {
               <Typography sx={{ mb: 1 }} color="text.secondary">
                 set your time
               </Typography>
-              <MultiInputTimeRangeField
-                style={{ marginBottom: "8px" }}
-                label="Select Time Range"
-                slotProps={{
-                  textField: ({ position }) => ({
-                    label: position === "start" ? "From" : "To",
-                  }),
-                }}
-                value={selectedTimeRange}
-                onChange={handleTimeRangeChange}
-              ></MultiInputTimeRangeField>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "baseline",
-                }}
-              >
-                <Autocomplete
+              <Autocomplete
                   id="HCP-select-demo"
-                  sx={{ width: 250, marginTop: "20px", color: "black" }}
+                  sx={{ width: 220, marginTop: "20px" }}
                   options={HCP}
                   autoHighlight
                   getOptionLabel={(option) => option.name}
@@ -117,6 +115,7 @@ export default function BookMeeting() {
                         autoComplete: "new-password", // disable autocomplete and autofill
                       }}
                     />
+
                   )} 
                 /></div>
                 <Button
@@ -126,44 +125,50 @@ export default function BookMeeting() {
                 >
                   Submit
                 </Button>
+
+                  )}
+                />
+                
+
               <div
                 style={{
                   display: "flex",
                   flexDirection: "row",
-                  alignItems: "",
-                  justifyContent: "space-between",
+                  alignItems: "baseline",
+                  justifyContent:'space-between'
                 }}
               >
-                <Autocomplete
-                  id="HCP-select-demo"
-                  sx={{ width: 220, marginTop: "30px", color: "black" }}
-                  options={HCP}
+                {selectedHCP?<Autocomplete
+                  id="timeslot-select-demo"
+                  sx={{ width: 220, marginTop: "20px" }} 
+                  options={timeSlots}
                   autoHighlight
-                  getOptionLabel={(option) => option.name}
+                  getOptionLabel={(option) => option.start}
                   isOptionEqualToValue={(option, value) =>
-                    option.code === value.code
+                    option.sess === value.sess
                   }
-                  onChange={(event, value) => handleHCPChange(value)}
+                  onChange={(event, value) => handleTimeSlotChange(value)}
                   renderOption={(props, option) => (
                     <Box
                       component="li"
                       sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
                       {...props}
                     >
-                      {option.code}: {option.name} | room:{option.room}
+                      {option.sess}: from {option.start}  to{option.end}
                     </Box>
                   )}
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="Choose a HCP"
+                      label="Choose a time slot"
                       inputProps={{
                         ...params.inputProps,
                         autoComplete: "new-password", // disable autocomplete and autofill
                       }}
                     />
-                  )}
-                />
+                  )}/>:null}
+                
+              
                 <Button
                   variant="contained"
                   className="submit-button"
@@ -171,10 +176,13 @@ export default function BookMeeting() {
                 >
                   Submit
                 </Button>
-              </div>
+             
+                
+              </ div>
+              
             </CardContent>
           </React.Fragment>
-        )}
+        ) }
       </LocalizationProvider>
     </div>
   );
