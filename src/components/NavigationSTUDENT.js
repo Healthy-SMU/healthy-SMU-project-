@@ -9,13 +9,13 @@ import Button from "@mui/material/Button";
 import logo from "./Assets/smulogo.png";
 import { useLocation } from "react-router-dom";
 
-export default function Navigation() {
+export default function NavigationSTUDENT() {
 
 
 //to remove the navigation bar from the welcomePage and the loginSignup page 
   const location = useLocation()
 
-if(location.pathname ==="/login" || location.pathname ==="/") {
+if(location.pathname ==="/login" || location.pathname ==="/" || location.pathname ==="/Set-time-slots") {
   return null
 };
 
@@ -37,11 +37,11 @@ if(location.pathname ==="/login" || location.pathname ==="/") {
                 textDecoration: "none",
                 color: "white",
                 fontWeight: "bold",
-                width:"50px"
+                width:"70px"
               }}
               to="/"
             >
-              HOME
+              log out 
             </Link>
           </Button>
         </Nav.Link>
@@ -61,21 +61,7 @@ if(location.pathname ==="/login" || location.pathname ==="/") {
             </Link>
           </Button>
         </Nav.Link>
-        <Nav.Link>
-          <Button variant="secondary">
-            <Link
-              style={{
-                textDecoration: "none",
-                color: "white",
-                fontWeight: "bold",
-                width:"300px",
-              }}
-              to="/HCP"
-            >
-              HEALTHCARE PROFESSIONALS{" "}
-            </Link>
-          </Button>
-        </Nav.Link>
+       
         <Nav.Link>
           <Button variant="secondary">
             <Link
