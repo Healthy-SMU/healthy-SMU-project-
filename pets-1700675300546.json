@@ -1,0 +1,32 @@
+[
+  {
+    "color": "gray",
+    "type": "totoro",
+    "size": "nano",
+    "name": "salmen"
+  },
+  {
+    "color": "yellow",
+    "type": "zappy",
+    "size": "nano",
+    "name": "babous"
+  },
+  {
+    "color": "white",
+    "type": "dog",
+    "size": "nano",
+    "name": "sorm"
+  },
+  {
+    "color": "green",
+    "type": "snake",
+    "size": "nano",
+    "name": "ba3bous"
+  },
+  {
+    "color": "red",
+    "type": "fox",
+    "size": "nano",
+    "name": "nouna"
+  }
+]

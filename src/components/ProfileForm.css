@@ -1,5 +1,7 @@
 /* ProfileForm.css */
 
+/* ProfileForm.css */
+
 .profile-form {
     text-align: center;
   }
@@ -13,13 +15,45 @@
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 8px; /* Adjust the border-radius as needed for rounded corners */
-    margin-bottom: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
     box-sizing: border-box;
+  }
+  
+  .profile-form .file-input-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+  
+  .profile-form .file-input-button {
+    background-color: dodgerblue;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .profile-form .file-input {
+    font-size: 100px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .profile-form img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-top: 10px;
   }
   
   .profile-form .buttons {
     text-align: center;
+    margin-top: 10px;
   }
   
   .profile-form button {
@@ -27,7 +61,7 @@
     color: white;
     padding: 10px 20px;
     border: none;
-    border-radius: 8px; /* Adjust the border-radius as needed for rounded corners */
+    border-radius: 8px;
     cursor: pointer;
     margin-right: 10px;
   }
@@ -35,4 +69,5 @@
   .profile-form button:last-child {
     margin-right: 0;
   }
+  
   
