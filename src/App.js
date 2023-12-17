@@ -45,7 +45,7 @@ const App = () => {
         <Navigation/> 
           <Routes>
             <Route index element={<Home/>}/>
-            <Route path='/home' element={<WelcomePage/>}/>
+            <Route path='/home' element={<Home/>}/>
             <Route path='/profile-details' element={<ProfileDetails/>}/>
             <Route path='/book-a-meeting' element={<BookMeeting weeklyEvents={weeklyEvents}/>}/>
             <Route path='/Set-time-slots' element={<SetTimeSlots weeklyEvents={weeklyEvents} />}/>
