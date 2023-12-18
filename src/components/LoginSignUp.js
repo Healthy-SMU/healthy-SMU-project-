@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "./LoginSignUp.css";
 
 import logo from './Assets/smulogo.png';
@@ -16,7 +17,7 @@ const Login = (props) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const navigate = useNavigate();
   const handleSignUp = async (event) => {
   
   
@@ -116,6 +117,7 @@ const Login = (props) => {
       // handle error during signup (e.g. show error message)
     }
 
+    navigate('/home');
   };
 
  
