@@ -1,5 +1,6 @@
 
 import React from "react";
+import axios from 'axios';
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -8,6 +9,7 @@ import "./Navigation.css";
 import Button from "@mui/material/Button";
 import logo from "./Assets/smulogo.png";
 import { useLocation } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 export default function NavigationSTUDENT() {
 
@@ -19,19 +21,38 @@ if(location.pathname ==="/login" || location.pathname ==="/" || location.pathnam
   return null
 };
 
+const handleLogout = async () => {
+  try {
+    const token = Cookies.get('token');
+    // Make a request to the logout endpoint
+    axios.defaults.withCredentials = true;
+    const response = await axios.post('http://localhost:8000/api/logout', {}, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
 
+    // Check if the logout was successful
+    if (response.status === 200) {
+      console.log('Logged out successfully');
+      Cookies.remove('token')
+    } else {
+      console.error('Failed to log out');
+    }
+  } catch (error) {
+    console.error('An error occurred while logging out:', error);
+  }
+};
 
   return (
     <Navbar bg="dark" data-bs-theme="dark">
       <Container className="navbar">
-        <Nav.Link>
+        <Nav.Item>
           <Link to="/home">
             <img src={logo} alt="Logo" className="logo"  />
           </Link>
-        </Nav.Link>
+        </Nav.Item>
 
-        <Nav.Link>
-          <Button variant="secondary">
+        <Nav.Item>
+          <Button variant="secondary" onClick={handleLogout}>
             <Link
               style={{
                 textDecoration: "none",
@@ -44,9 +65,9 @@ if(location.pathname ==="/login" || location.pathname ==="/" || location.pathnam
               log out 
             </Link>
           </Button>
-        </Nav.Link>
+        </Nav.Item>
 
-        <Nav.Link>
+        <Nav.Item>
           <Button variant="secondary">
             <Link
               style={{
@@ -60,9 +81,9 @@ if(location.pathname ==="/login" || location.pathname ==="/" || location.pathnam
               BOOK A MEETING
             </Link>
           </Button>
-        </Nav.Link>
+        </Nav.Item>
        
-        <Nav.Link>
+        <Nav.Item>
           <Button variant="secondary">
             <Link
               style={{
@@ -76,7 +97,7 @@ if(location.pathname ==="/login" || location.pathname ==="/" || location.pathnam
               PROFILE
             </Link>
           </Button>
-        </Nav.Link>
+        </Nav.Item>
       </Container>
     </Navbar>
   );
