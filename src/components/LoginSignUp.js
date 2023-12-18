@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "./LoginSignUp.css";
 
 import logo from './Assets/smulogo.png';
@@ -6,6 +7,7 @@ import user_icon from "./Assets/person.png";
 import email_icon from "./Assets/email.png";
 import password_icon from "./Assets/password.png";
 import phone from "./Assets/phone.png";
+import axios from 'axios';
 
 
 const Login = (props) => {
@@ -15,27 +17,13 @@ const Login = (props) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleSignIn = () => {
-    // Replace this with actual authentication logic
-    const mockUserData = {
-      email: 'test@example.com',
-      password: 'password123',
-    };
-
-    if (email === mockUserData.email && password === mockUserData.password) {
-      // Authentication successful, perform the necessary actions
-      console.log('Login successful!');
-    } else {
-      // Authentication failed, show an error message or handle accordingly
-      console.log('Login failed. Invalid email or password.');
-    }
-  };
-
-  const handleSignUp = () => {
+  const navigate = useNavigate();
+  const handleSignUp = async (event) => {
+  
+  
     // Password security conditions
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; // At least 8 characters, one letter, and one number
-  
+    
     if (!passwordRegex.test(password)) {
       console.log('Password must be at least 8 characters and include at least one letter and one number.');
       return;
@@ -53,8 +41,86 @@ const Login = (props) => {
     // If the function reaches here, it means the password and email conditions are satisfied
     // You can proceed with the signup logic
     console.log('Sign up successful!');
-  };
   
+    const HCPsignupData = {
+      email_address: email, // replace with your state variable
+      fullname: id, // replace with your state variable
+      password: password, // replace with your state variable
+      phone_number: phoneNumber, // replace with your state variable
+      category: selectedRole, // replace with your state variable
+    };
+
+    const SsignupData = {
+      email_address: email, // replace with your state variable
+      fullname: id, // replace with your state variable
+      password: password, // replace with your state variable
+      phone_number: phoneNumber, // replace with your state variable
+    };
+
+   if(selectedRole === null){
+    try {
+      const response = await axios.post('http://localhost:8000/api/Healthcare_professional/signup', HCPsignupData); // replace with your API endpoint
+  
+      if (response.status === 200) {
+        console.log(response.data);
+        // handle successful signup (e.g. redirect to login page)
+      } else {
+        console.error('Error during signup:', response.data.msg);
+        // handle error during signup (e.g. show error message)
+      }
+    } catch (error) {
+      console.error('Error during signup:', error);
+      // handle error during signup (e.g. show error message)
+    }
+  } else if(selectedRole !== null){
+
+    
+  
+    try {
+      const response = await axios.post('http://localhost:8000/api/Student/signup', SsignupData); // replace with your API endpoint
+  
+      if (response.status === 200) {
+        console.log(response.data);
+        // handle successful signup (e.g. redirect to login page)
+      } else {
+        console.error('Error during signup:', response.data.msg);
+        // handle error during signup (e.g. show error message)
+      }
+    } catch (error) {
+      console.error('Error during signup:', error);
+      // handle error during signup (e.g. show error message)
+    }
+
+  };
+}
+
+  const handleSignIn = async (event) => {
+    
+
+    const LoginData = {
+      email_address: email, // replace with your state variable
+      password: password, // replace with your state variable
+    };
+  
+    try {
+      const response = await axios.post('http://localhost:8000/api/login', LoginData); // replace with your API endpoint
+  
+      if (response.status === 200) {
+        console.log(response.data);
+        // handle successful signup (e.g. redirect to login page)
+      } else {
+        console.error('Error during signup:', response.data.msg);
+        // handle error during signup (e.g. show error message)
+      }
+    } catch (error) {
+      console.error('Error during signup:', error);
+      // handle error during signup (e.g. show error message)
+    }
+
+    navigate('/home');
+  };
+
+ 
 
   return (
     <div>
