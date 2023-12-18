@@ -2,12 +2,12 @@ import React from 'react';
 import Home from './components/Home'
 import LoginSignUp from './components/LoginSignUp'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Navigation from './components/Navigation';
+import NavigationSTUDENT from './components/NavigationSTUDENT';
 import ProfileDetails from './components/ProfileDetails';
 import BookMeeting from './components/BookMeeting';
-import SetTimeSlots from './components/SetTimeSlots'
-
-import WelcomePage from './components/WelcomePage';
+import SetTimeSlots from './componentsHCP/SetTimeSlots'
+import HCPProfileDetails from './componentsHCP/HCPProfileDetails';
+import NavigationHCP from './componentsHCP/NavigationHCP';
 
 const App = () => {
 
@@ -39,10 +39,15 @@ const App = () => {
     
     // Add more events as needed
   ];
+
+ //set your condition here 
+  const isHCP = true;
+
   return (
       <div>
         <BrowserRouter>
-        <Navigation/> 
+        {isHCP ? <NavigationHCP /> : <NavigationSTUDENT />}
+        
           <Routes>
             <Route index element={<Home/>}/>
             <Route path='/home' element={<Home/>}/>
@@ -50,6 +55,7 @@ const App = () => {
             <Route path='/book-a-meeting' element={<BookMeeting weeklyEvents={weeklyEvents}/>}/>
             <Route path='/Set-time-slots' element={<SetTimeSlots weeklyEvents={weeklyEvents} />}/>
             <Route path='/login' element={<LoginSignUp/>}/>
+            <Route path='/profile-details-HCP' element={<HCPProfileDetails/>}/>
           </Routes>
         </BrowserRouter>
       

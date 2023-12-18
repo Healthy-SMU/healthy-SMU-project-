@@ -1,0 +1,120 @@
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-card {
+  
+  background-color: transparent;
+  width: 400px; /* Adjust the width as needed */
+  height: 600px; /* Adjust the height as needed */
+  border: none ;
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  margin: auto;
+  position: absolute;
+  top: 0; bottom: 0; /* Center vertically */
+  left: 0; right: 0; /* Center horizontally */
+  border-radius: 60px; /* Adjust the border-radius as needed */
+  overflow: hidden; /* Ensure content within the rounded border is visible */
+}
+
+  
+  /* This container is needed to position the front and back side */
+  .flip-card-inner {
+    border-radius: 30px;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+  
+  /* Do an horizontal flip when you move the mouse over the flip box container */
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+  
+  /* Position the front and back side */
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+  }
+  
+  /* Style the front side (fallback if image is missing) */
+  .flip-card-front {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+ 
+  /* Style the back side */
+  .flip-card-back {
+    background-color:#48d1cc;
+    color: white;
+    transform: rotateY(180deg);
+    padding: 20px; /* Add padding to create space for the text and button */
+    box-sizing: border-box; /* Include padding and border in the total width and height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px; /* Adjust the border-radius as needed */
+    overflow: hidden; /* Ensure content within the rounded border is visible */
+    
+  }
+
+  .flip-card-back h1 {
+    font-size: 40px; /* Adjust the font size as needed */
+    margin-bottom: 5px; /* Add margin for separation */
+     ;
+  }
+  
+  /* Style for email and ID */
+  .flip-card-back p {
+    font-size: 18px; /* Adjust the font size as needed */
+    margin: 5px 0; /* Add margin for separation */
+    color : white;
+  }
+  .flip-card-back button {
+    background-color: #fff; /* Adjust button background color as needed */
+    color: dodgerblue; /* Adjust button text color as needed */
+    border: 1px solid #fff; /* Adjust button border as needed */
+    padding: 10px 20px; /* Adjust button padding as needed */
+    font-size: 16px; /* Adjust button font size as needed */
+    cursor: pointer;
+    margin-top: 15px; /* Add margin to separate button from the text */
+    border-radius: 60px; 
+  }
+
+  .font p,h1{
+    font-family: "Times New Roman", Times, serif;
+font-size: 28px;
+letter-spacing: 0px;
+word-spacing: 0.2px;
+color: #ffffff;
+font-weight: normal;
+text-decoration: none;
+font-style: normal;
+font-variant: normal;
+text-transform: none;
+  }
+  .profile-details {
+    text-align: center;
+  }
+  
+  /* Style for the phone number */
+  .flip-card-back p {
+    font-size: 18px;
+    margin: 5px 0;
+  }
+
+  .delete-button-container {
+    margin-top: 15px;
+  }
+  .delete-button {
+    background-color: tomato;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+  }
