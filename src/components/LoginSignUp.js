@@ -58,7 +58,7 @@ const Login = (props) => {
       phone_number: phoneNumber, // replace with your state variable
     };
 
-   if(selectedRole === null){
+   if(selectedRole !== ""){
     try {
       const response = await axios.post('http://localhost:8000/api/Healthcare_professional/signup', HCPsignupData); // replace with your API endpoint
   
@@ -73,7 +73,7 @@ const Login = (props) => {
       console.error('Error during signup:', error);
       // handle error during signup (e.g. show error message)
     }
-  } else if(selectedRole !== null){
+  } else if(selectedRole === ""){
 
     
   
@@ -134,7 +134,7 @@ const Login = (props) => {
       <div className='container'>
         <div className='submit-container'>
             <div className={action === "Sign Up As HealthCare" ? "submit" : "submit gray"} onClick={() => setAction("Sign Up As HealthCare")}>Sign Up As HealthCare</div>
-            <div className={action === "Sign Up As Student" ? "submit" : "submit gray"} onClick={() => setAction("Sign Up As Student")}>Sign Up As Student</div>
+            <div className={action === "Sign Up As Student" ? "submit" : "submit gray"} onClick={() => setAction("Sign Up As Student") && setSelectedRole("")}>Sign Up As Student</div>
             <div className={action === "Login" ? "submit blue" : "submit gray"} onClick={() => setAction("Login")}>Login</div>
         </div>
         <div className='header'>
@@ -188,6 +188,7 @@ const Login = (props) => {
                   value={selectedRole}
                   onChange={(e) => setSelectedRole(e.target.value)}
                 >
+                  <option value=''>Select a role</option>
                   <option value='nurse'>Nurse</option>
                   <option value='psychologist'>Psychologist</option>
                 </select>

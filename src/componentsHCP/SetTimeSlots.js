@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import axios from 'axios';
 import {
   DayPilot,
   DayPilotCalendar,
@@ -27,6 +28,21 @@ const SetTimeSlots = ({ weeklyEvents}) => {
   };
 
   const deleteEvent = async (e) => {
+    try {
+      axios.defaults.withCredentials = true;
+      const response = await axios.post('http://localhost:8000/api/Timeslot/Delete',  e.startString ); // replace with your API endpoint
+  
+      if (response.status === 200) {
+        console.log(response.data.msg );
+        const dp = calendarRef.current.control;
+        saveEventsToStorage(dp.events.list);
+      } else {
+        console.error('Error deleting timeslot:', response.data.msg);
+      }
+    } catch (error) {
+      console.error('Error deleting timeslot:', error);
+      // handle error during deletion (e.g. show error message)
+    }
     const dp = calendarRef.current.control;
     if (!dp) {
       return;
@@ -78,6 +94,8 @@ const SetTimeSlots = ({ weeklyEvents}) => {
     viewType: "Week",
     durationBarVisible: true,
     timeRangeSelectedHandling: "enabled",
+
+
     onTimeRangeSelected: async (args) => {
       const dp = calendarRef.current.control;
       const modal = await DayPilot.Modal.prompt(
@@ -91,13 +109,62 @@ const SetTimeSlots = ({ weeklyEvents}) => {
         return;
       }
 
-      const newEvent = {
-        start: args.start,
-        end: args.end,
-        id: DayPilot.guid(),
-        text: modal.result,
-      };
-      dp.events.add(newEvent);
+     // Get the start and end dates as Date objects
+let startDate = new Date(args.start.value);
+let endDate = new Date(args.end.value);
+
+// Format the start and end dates as "YYYY-MM-DD HH:MM:SS"
+let startString = startDate.toISOString().replace('T', ' ').substring(0, 19);
+let endString = endDate.toISOString().replace('T', ' ').substring(0, 19);
+
+let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+let dayOfWeek = days[startDate.getDay()];
+
+/*const newEvent = {
+  start_date_and_time: startString,
+  end_date_and_time: endString,
+  id: DayPilot.guid(),
+  text: modal.result,
+  day: dayOfWeek,
+  status: "available",
+};*/
+
+const newEvent = {
+  start_date_and_time: startString,
+  end_date_and_time: endString,
+  id: DayPilot.guid(),
+  text: modal.result,
+  day: dayOfWeek,
+  status: "available",
+};
+
+
+const dpEvent = {
+  start: startString,
+  end: endString,
+  id: newEvent.id,
+  text: newEvent.text,
+};
+
+try {
+  axios.defaults.withCredentials = true;
+  const response = await axios.post('http://localhost:8000/api/Timeslot/Add', newEvent ); // replace with your API endpoint
+
+  if (response.status === 200) {
+    console.log(response.data.msg );
+    dp.events.add(dpEvent);
+    saveEventsToStorage(dp.events.list);
+  } else {
+    console.error('Error adding timeslot:', response.data.msg);
+  }
+} catch (error) {
+  console.error('Error adding timeslot:', error);
+  // handle error during signup (e.g. show error message)
+}
+
+console.log(newEvent);
+
+      
       saveEventsToStorage(dp.events.list);
     },
     onEventClick: async (args) => {
@@ -132,7 +199,7 @@ const SetTimeSlots = ({ weeklyEvents}) => {
           right: 20,
           width: 20,
           height: 20,
-          symbol: "icons/daypilot.svg#minichevron-down-2",
+          //symbol: "icons/daypilot.svg#minichevron-down-2",
           fontColor: "white",
           toolTip: "Show context menu",
           action: "ContextMenu",
@@ -142,7 +209,7 @@ const SetTimeSlots = ({ weeklyEvents}) => {
           right: 25,
           width: 20,
           height: 20,
-          symbol: "icons/daypilot.svg#x-circle",
+          //symbol: "icons/daypilot.svg#x-circle",
           fontColor: "#fff",
           action: "None",
           toolTip: "Delete event",
