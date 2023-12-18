@@ -26,19 +26,19 @@ const Home = (props) => {
 
   return (
     <div style={backgroundStyle}>
-      <div class="animated-title">
-        <div class="text-top">
+      <div className="animated-title">
+        <div className="text-top">
           <div>
             <span>welcome to</span>
             <span>healthy SMU </span>
           </div>
         </div>
-        <div class="text-bottom">
+        <div className="text-bottom">
           <div>your health is our priority!</div>
         </div>
       </div>
 
-      <section class="health-info">
+      <section className="health-info">
   <h1 style={{color :'black'}}>Welcome to healthy SMU – your gateway to accessible and confidential healthcare support!</h1>
   <p>Easily book meetings with dedicated healthcare professionals, including compassionate nurses and experienced psychologists.</p>
   <p>Your well-being is our priority, and we're here to support you every step of the way.</p>

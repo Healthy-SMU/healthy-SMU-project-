@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./LoginSignUp.css";
-
+import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode';
 import logo from './Assets/smulogo.png';
 import user_icon from "./Assets/person.png";
 import email_icon from "./Assets/email.png";
@@ -107,17 +108,22 @@ const Login = (props) => {
   
       if (response.status === 200) {
         console.log(response.data);
-        // handle successful signup (e.g. redirect to login page)
+
+          // Get the user type from the response
+          const userType = response.data.userType;
+          console.log(response.data.message);
+          props.onUserType(userType);
+          navigate('/home');
+ 
       } else {
-        console.error('Error during signup:', response.data.msg);
+        console.error('Error during login:', response.data.msg);
         // handle error during signup (e.g. show error message)
       }
     } catch (error) {
-      console.error('Error during signup:', error);
+      console.error('Error during login:', error);
       // handle error during signup (e.g. show error message)
     }
 
-    navigate('/home');
   };
 
  

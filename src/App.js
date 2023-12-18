@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import Home from './components/Home'
 import LoginSignUp from './components/LoginSignUp'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -40,8 +41,14 @@ const App = () => {
     // Add more events as needed
   ];
 
- //set your condition here 
-  const isHCP = true;
+  const [userType, setUserType] = useState(null);
+
+  const handleUserType = (type) => {
+    setUserType(type);
+  };
+
+
+  const isHCP = userType === 'HCPtoken';
 
   return (
       <div>
@@ -50,6 +57,7 @@ const App = () => {
         
           <Routes>
             <Route index element={<Home/>}/>
+            <Route path='/login' element={<LoginSignUp onUserType={handleUserType} />}/>
             <Route path='/home' element={<Home/>}/>
             <Route path='/profile-details' element={<ProfileDetails/>}/>
             <Route path='/book-a-meeting' element={<BookMeeting weeklyEvents={weeklyEvents}/>}/>
